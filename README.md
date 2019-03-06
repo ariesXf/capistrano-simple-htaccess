@@ -1,5 +1,7 @@
 # Capistrano::SimpleHtaccess
 
+[![Gem Version](https://badge.fury.io/rb/capistrano-simple-htaccess.svg)](https://badge.fury.io/rb/capistrano-simple-htaccess)
+
 Capistrano task for including a simple apache .htaccess file for redirects on deploy.
 
 ## Installation
