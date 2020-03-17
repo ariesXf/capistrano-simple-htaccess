@@ -1,25 +1,28 @@
+# frozen_string_literal: true
+
 namespace :load do
   task :defaults do
     set :redirect_OK, false
-    set :HTACCESS, <<HTACCESS
-<IfModule mod_rewrite.c>
-  Options +FollowSymLinks
+    set :HTACCESS, <<~HTACCESS
+      <IfModule mod_rewrite.c>
+        Options +FollowSymLinks
 
-  RewriteEngine On
-  RewriteCond %{REQUEST_URI} !/current/
-  RewriteRule ^(.*)$ current/$1 [L]
-</IfModule>
+        RewriteEngine On
+        RewriteCond %{REQUEST_URI} !/current/
+        RewriteRule ^(.*)$ current/$1 [L]
+      </IfModule>
 
-HTACCESS
+    HTACCESS
   end
 end
 
 namespace :deploy do
   namespace :simple_htaccess do
-
     task :create_htaccess do
       on roles :web do
-        upload! StringIO.new(fetch :HTACCESS), "#{deploy_to}/.htaccess" unless fetch(:redirect_OK)
+        unless fetch(:redirect_OK)
+          upload! StringIO.new(fetch(:HTACCESS)), "#{deploy_to}/.htaccess"
+        end
       end
     end
 
@@ -35,9 +38,9 @@ namespace :deploy do
       end
     end
 
-    desc "Ensures basic .htaccess redirects are properly setup for Capistrano deployment"
-    task ensure: [:ensure_htaccess, :create_htaccess]
+    desc 'Ensures basic .htaccess redirects are properly setup for Capistrano deployment'
+    task ensure: %i[ensure_htaccess create_htaccess]
   end
 end
 
-after "deploy:updated", "deploy:simple_htaccess:ensure"
+after 'deploy:updated', 'deploy:simple_htaccess:ensure'
