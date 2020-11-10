@@ -1,0 +1,58 @@
+PATH
+  remote: .
+  specs:
+    capistrano-simple-htaccess (0.1.1)
+      capistrano (~> 3.14)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    airbrussh (1.4.0)
+      sshkit (>= 1.6.1, != 1.7.0)
+    ast (2.4.1)
+    capistrano (3.14.1)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    concurrent-ruby (1.1.7)
+    i18n (1.8.5)
+      concurrent-ruby (~> 1.0)
+    net-scp (3.0.0)
+      net-ssh (>= 2.6.5, < 7.0.0)
+    net-ssh (6.1.0)
+    parallel (1.20.0)
+    parser (2.7.2.0)
+      ast (~> 2.4.1)
+    rainbow (3.0.0)
+    rake (13.0.1)
+    regexp_parser (1.8.2)
+    rexml (3.2.4)
+    rubocop (1.2.0)
+      parallel (~> 1.10)
+      parser (>= 2.7.1.5)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8)
+      rexml
+      rubocop-ast (>= 1.0.1)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (1.1.1)
+      parser (>= 2.7.1.5)
+    ruby-progressbar (1.10.1)
+    sshkit (1.21.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    unicode-display_width (1.7.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 2.1)
+  capistrano-simple-htaccess!
+  rake (~> 13.0)
+  rubocop (>= 1.2)
+
+BUNDLED WITH
+   2.1.4
