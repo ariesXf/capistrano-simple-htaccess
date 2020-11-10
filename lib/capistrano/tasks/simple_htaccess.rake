@@ -3,13 +3,15 @@
 namespace :load do
   task :defaults do
     set :redirect_OK, false
+    set :document_root, '/var/www/html'
     set :HTACCESS, <<~HTACCESS
       <IfModule mod_rewrite.c>
         Options +FollowSymLinks
 
         RewriteEngine On
-        RewriteCond %{REQUEST_URI} !/current/
-        RewriteRule ^(.*)$ current/$1 [L]
+        RewriteBase "%<base>s"
+        RewriteRule ^current(.*) %<base>s$1 [NC,R,END]
+        RewriteRule ^((?!current/).*)$ current/$1 [NC,END]
       </IfModule>
 
     HTACCESS
@@ -20,9 +22,10 @@ namespace :deploy do
   namespace :simple_htaccess do
     task :create_htaccess do
       on roles :web do
-        unless fetch(:redirect_OK)
-          upload! StringIO.new(fetch(:HTACCESS)), "#{deploy_to}/.htaccess"
-        end
+        document_root = fetch :document_root
+        base_dir = deploy_to.delete_prefix(document_root)
+        filled_template = format(fetch(:HTACCESS), base: base_dir)
+        upload! StringIO.new(filled_template), "#{deploy_to}/.htaccess" unless fetch(:redirect_OK)
       end
     end
 

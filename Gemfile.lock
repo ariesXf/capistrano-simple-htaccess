@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    capistrano-simple-htaccess (0.1.1)
+    capistrano-simple-htaccess (1.0.0)
       capistrano (~> 3.14)
 
 GEM
